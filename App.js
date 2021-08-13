@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button , Platform} from 'react-native';
+import HomeScreen from './app/screens/HomeScreen'
 import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
 
 
 export default function App() {
-  const {landscape} = useDeviceOrientation()
+
   return (
     <HomeScreen/>
   );
