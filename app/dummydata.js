@@ -21,7 +21,14 @@ let categoriesData = [
           description: "Vitamin",
           total: 25.00,
 
-      }
+      },
+      {
+        id: 2,
+        title: "Restaurant",
+        description: "Pasta",
+        total: 40.00,
+
+    }
 
   ],
 },
