@@ -27,7 +27,7 @@ let categoriesData = [
 },
 {
   id: 2,
-  name: "Beauty & Care",
+  name: "Self Care",
   icon: selfcare,
   color: "pink",
   expenses: [

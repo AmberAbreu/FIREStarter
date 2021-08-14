@@ -1,91 +1,71 @@
-import React, {useRef} from 'react'
-import { StyleSheet, Text, SafeAreaView, TouchableOpacity, Image, Animated , FlatList} from 'react-native'
-import categoriesData from '../dummydata'
+// import React, {useRef} from 'react'
+// import { StyleSheet, Text, SafeAreaView, TouchableOpacity, Image, Animated , FlatList} from 'react-native'
+// import categoriesData from '../dummydata'
 
-const up = require('../assets/icons/up_arrow.png')
-const down = require('../assets/icons/down_arrow.png')
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-export default function CategoryList() {
-  const categoryListHeightAnimationValue = useRef(new Animated.Value(115)).current
-  const [categories, setCategories] = React.useState(categoriesData)
-  const [selectedCategory, setSelectedCategory] = React.useState(null)
-  const [showMoreToggle, setShowMoreToggle] = React.useState(false)
+
+
+
+// export default function CategoryList() {
+//   const [categories, setCategories] = React.useState(categoriesData)
+
   
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-        onPress={() => setSelectedCategory(item)}
-        style={{
-            flex: 1,
-            flexDirection: 'row',
-            margin: 5,
-            paddingVertical: 12,
-            paddingHorizontal: 24,
-            borderRadius: 5,
-            backgroundColor: "white",
-            ...styles.shadow
-        }}
-    >
-        <Image
-            source={item.icon}
-            style={{
-                width: 20,
-                height: 20
-            }}
-        />
-        <Text style={{ marginLeft: 8, color: "blue", fontSize: 14 }}>{item.name}</Text>
-    </TouchableOpacity>
-)
+//   const renderItem = ({ item }) => (
+//     <TouchableOpacity
+//         style={{
+//             flex: 1,
+//             flexDirection: 'column',
+//             alignItems: 'center',
+//             justifyContent: 'space-between',
+//             margin: 5,
+//             paddingVertical: 50,
+//             paddingHorizontal: 24,
+//             borderRadius: 5,
+//             backgroundColor: "white",
+//             ...styles.shadow
+//         }}
+//     >
 
-return (
-    <SafeAreaView style={{ paddingHorizontal: 24 - 5 }}>
-        <Animated.View style={{ height: categoryListHeightAnimationValue }}>
-            <FlatList
-                data={categories}
-                renderItem={renderItem}
-                keyExtractor={item => `${item.id}`}
-                numColumns={2}
-            />
-        </Animated.View>
+//         <Image
+//             source={item.icon}
+//             style={{
+//                 width: 20,
+//                 height: 20,
+//                 tintColor: item.color
+//             }}
+//         />
+//         <Text style={{ marginLeft: 8, color: "blue", fontSize: 14 }}>{item.name}</Text>
+        
+//     </TouchableOpacity>
+// )
 
-        <TouchableOpacity
-            style={{
-                flexDirection: 'row',
-                marginVertical: 8,
-                justifyContent: 'center'
-            }}
-            onPress={() => {
-                if (showMoreToggle) {
-                    Animated.timing(categoryListHeightAnimationValue, {
-                        toValue: 115,
-                        duration: 500,
-                        useNativeDriver: false
-                    }).start()
-                } else {
-                    Animated.timing(categoryListHeightAnimationValue, {
-                        toValue: 172.5,
-                        duration: 500,
-                        useNativeDriver: false
-                    }).start()
-                }
+// return (
+//     <SafeAreaView style={{ paddingHorizontal: 24 - 5 }}>
+//         <Animated.View style={{ height: '80%' }}>
+//             <FlatList
+//                 data={categories}
+//                 renderItem={renderItem}
+//                 keyExtractor={item => `${item.id}`}
+//                 numColumns={2}
+//             />
+//         </Animated.View>
+        
+        
+//     </SafeAreaView>
+// )
+// }
 
-                setShowMoreToggle(!showMoreToggle)
-            }}
-        >
-           
-        </TouchableOpacity>
-    </SafeAreaView>
-)
-}
-
-const styles = StyleSheet.create({
-  shadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-        width: 2,
-        height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 3,
-}
-})
+// const styles = StyleSheet.create({
+//   shadow: {
+//     shadowColor: "#000",
+//     shadowOffset: {
+//         width: 2,
+//         height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 3,
+// }
+// })

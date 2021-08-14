@@ -1,19 +1,64 @@
 import React from 'react'
-import { StyleSheet, Text, ScrollView, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, Image, Animated , FlatList } from 'react-native'
+
+import categoriesData from '../dummydata'
+import Details from './DetailsScreen'
 
 import UserInfo from '../components/UserInfo'
 import CategoryHeader from '../components/Categories'
-import CategoryList from '../components/CategoryList'
+
 import Chart from '../components/Chart'
 
-export default function WelcomeScreen() {
+export default function HomeScreen({navigation}) {
+  const [categories, setCategories] = React.useState(categoriesData)
+
+  
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+        onPress={() => navigation.navigate('Details', {itemId: item.id})}
+        style={{
+            flex: 1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            margin: 5,
+            paddingVertical: 50,
+            paddingHorizontal: 24,
+            borderRadius: 5,
+            backgroundColor: "white",
+            ...styles.shadow
+        }}
+    >
+
+        <Image
+            source={item.icon}
+            style={{
+                width: 20,
+                height: 20,
+                tintColor: item.color
+            }}
+        />
+        <Text style={{ marginLeft: 8, color: "blue", fontSize: 14 }}>{item.name}</Text>
+        
+    </TouchableOpacity>
+)
   return (
-    <ScrollView>
+    <View>
       <UserInfo/>
       <CategoryHeader/>
-      <CategoryList/>
-      <Chart/>
-    </ScrollView>
+      <SafeAreaView style={{ paddingHorizontal: 24 - 5 }}>
+        <Animated.View style={{ height: '80%' }}>
+            <FlatList
+                data={categories}
+                renderItem={renderItem}
+                keyExtractor={item => `${item.id}`}
+                numColumns={2}
+            />
+        </Animated.View>
+        
+        
+    </SafeAreaView>
+    </View>
 
   )
 }
@@ -56,5 +101,15 @@ const styles = StyleSheet.create({
     height: 70,
     justifyContent: "flex-end",
     backgroundColor: "yellow"
-  }
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 2,
+        height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 3,
+}
 })

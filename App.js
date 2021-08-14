@@ -1,16 +1,54 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Button , Platform} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Button , Platform, } from 'react-native';
+import {createBottomTabNavigator, } from 'react-navigation-tabs'
+import {createAppContainer} from 'react-navigation'
 import HomeScreen from './app/screens/HomeScreen'
+import AnalyticsScreen from './app/screens/AnalyticsScreen'
+//Redux
+import {Provider} from 'react-redux'
+import store from './app/store'
 import { useDimensions, useDeviceOrientation } from '@react-native-community/hooks'
+// import auth from '@react-native-firebase/auth';
+
+import { NavigationContainer } from '@react-navigation/native'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
+
+import DetailsScreen from './app/screens/DetailsScreen'
+
+const Stack = createNativeStackNavigator()
+
+const bottomTabNavigator = createBottomTabNavigator(
+  {
+    Home: HomeScreen,
+    Analytics: AnalyticsScreen
+  },
+  {
+    initialRouteName: 'Home'
+  }
+)
+const AppContainer = createAppContainer(bottomTabNavigator)
 
 
 export default function App() {
 
   return (
-    <HomeScreen/>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen}/>
+          <Stack.Screen name="Details" component={DetailsScreen}/>
+        </Stack.Navigator>
+      
+      </NavigationContainer>
+      
+    </Provider>
+    
+    
   );
 }
+
+
 
 const styles = StyleSheet.create({
   baseText: {
@@ -22,42 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'orange',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: Platform.OS === "android" ? 20 : 0,
+
   },
 });
 
-
-// import 'react-native-gesture-handler';
-// import React, { useEffect, useState } from 'react'
-// import { NavigationContainer } from '@react-navigation/native'
-// import { createStackNavigator } from '@react-navigation/stack'
-// import { LoginScreen, RegistrationScreen } from './src/screens'
-// import HomeScreen from './app/screens/HomeScreen'
-// import {decode, encode} from 'base-64'
-// if (!global.btoa) {  global.btoa = encode }
-// if (!global.atob) { global.atob = decode }
-
-// const Stack = createStackNavigator();
-
-// export default function App() {
-
-//   const [loading, setLoading] = useState(true)
-//   const [user, setUser] = useState(null)
-
-//   return (
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         { user ? (
-//           <Stack.Screen name="Home">
-//             {props => <HomeScreen {...props} extraData={user} />}
-//           </Stack.Screen>
-//         ) : (
-//           <>
-//             <Stack.Screen name="Login" component={LoginScreen} />
-//             <Stack.Screen name="Registration" component={RegistrationScreen} />
-//           </>
-//         )}
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// }

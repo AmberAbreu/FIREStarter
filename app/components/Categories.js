@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native'
 
-import categoriesData from '../dummydata'
+
 const chart = require('../assets/icons/chart_icon.png')
 const menu = require('../assets/icons/menu_icon.png')
 
