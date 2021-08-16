@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View, Dimensions } from 'react-native'
 
-import {VictoryPie} from 'victory-native'
+import {VictoryPie, VictoryBar} from 'victory-native'
 
 import categoriesData from '../dummydata'
 
@@ -56,44 +56,57 @@ const windowWidth = Dimensions.get('window').width
   let totalExpenseCount = chartData.reduce((a, b) => a + (b.expenseCount || 0), 0)
 
   return (
-    <View style={{alignItems: 'center', justifyContent: 'center', top: 50}}>
+    <View style={{ alignItems: "center", justifyContent: "center", top: 50 }}>
+      <Text style={{ fontSize: 40 }}>Expenses Data:</Text>
       <VictoryPie
         data={chartData}
         colorScale={colorScales}
         labels={(datum) => `${datum.y}`}
-        radius={({ datum }) => (selectedCategory && selectedCategory.name == datum.name) ? windowWidth * 0.4 : windowWidth* 0.4 - 10}
+        radius={({ datum }) =>
+          selectedCategory && selectedCategory.name == datum.name
+            ? windowWidth * 0.4
+            : windowWidth * 0.4 - 10
+        }
         innerRadius={70}
-        labelRadius={({ innerRadius }) => (windowWidth * 0.4 + innerRadius) / 2.5}
+        labelRadius={({ innerRadius }) =>
+          (windowWidth * 0.4 + innerRadius) / 2.5
+        }
         style={{
-          labels: { fill: "white"},
+          labels: { fill: "white" },
           parent: {
-              ...styles.shadow
+            ...styles.shadow,
           },
         }}
         width={windowWidth * 0.8}
         height={windowWidth * 0.8}
-        events={[{
-          target: "data",
-          eventHandlers: {
-            onPress: () => {
-                return [{
+        events={[
+          {
+            target: "data",
+            eventHandlers: {
+              onPress: () => {
+                return [
+                  {
                     target: "labels",
                     mutation: (props) => {
-                        let categoryName = chartData[props.index].name
-                        setSelectCategoryByName(categoryName)
-                    }
-                }]
-            }
-        }
-      }]}
-      
+                      let categoryName = chartData[props.index].name;
+                      setSelectCategoryByName(categoryName);
+                    },
+                  },
+                ];
+              },
+            },
+          },
+        ]}
       />
-      <View style={{ position: 'absolute', top: '42%', left: "42%" }}>
-                        <Text style={{textAlign: 'center' }}>{totalExpenseCount}</Text>
-                        <Text style={{textAlign: 'center' }}>Expenses</Text>
-                    </View>
+
+      <View style={{ position: "absolute", top: "42%", left: "42%" }}>
+        <Text style={{ textAlign: "center" }}>{totalExpenseCount}</Text>
+        <Text style={{ textAlign: "center" }}>Expenses</Text>
+      </View>
+
+      
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

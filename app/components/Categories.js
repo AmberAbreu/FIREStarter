@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'rea
 
 
 const chart = require('../assets/icons/chart_icon.png')
-const menu = require('../assets/icons/menu_icon.png')
+const plus = require('../assets/icons/plus.png')
 
 
 export default function CategoryList() {
@@ -60,7 +60,7 @@ export default function CategoryList() {
           onPress={() => setViewMode("list")}
         >
           <Image
-            source={menu}
+            source={plus}
             resizeMode="contain"
             style={{
               width: 20,

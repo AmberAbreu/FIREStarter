@@ -7,7 +7,7 @@ import Details from './DetailsScreen'
 import UserInfo from '../components/UserInfo'
 import CategoryHeader from '../components/Categories'
 
-import Chart from '../components/Chart'
+
 
 export default function HomeScreen({navigation}) {
   const [categories, setCategories] = React.useState(categoriesData)
