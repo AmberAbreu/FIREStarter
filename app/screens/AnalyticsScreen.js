@@ -6,7 +6,7 @@ import {VictoryPie, VictoryBar} from 'victory-native'
 import categoriesData from '../dummydata'
 
 
-export default function renderChart() {
+export default function renderChart({navigation}) {
   const [categories, setCategories] = React.useState(categoriesData)
   const [selectedCategory, setSelectedCategory] = React.useState(null)
 
@@ -108,6 +108,14 @@ const windowWidth = Dimensions.get('window').width
     </View>
   );
 }
+
+
+//const singleData = 
+
+
+
+
+
 
 const styles = StyleSheet.create({
   shadow: {

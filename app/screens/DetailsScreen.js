@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableOpacity, Text, StyleSheet, View, Image } from 'react-native'
+import { TouchableOpacity, Button, Text, StyleSheet, View, Image } from 'react-native'
 
 import categoriesData from '../dummydata'
 
@@ -59,6 +59,9 @@ export default function DetailsScreen(props) {
           </View>
         </View>
       ))}
+      <Button title="+"
+      onPress={() => {}}
+      />
     </View>
   );
 }
