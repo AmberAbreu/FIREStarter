@@ -1,5 +1,15 @@
+//only require it once here so we don't have to always repeat this
+require('./models/User')
 const express = require("express")
 const mongoose = require('mongoose')
+const bodyParser = require("body-parser")
+const authRoutes = require("./routes/authRoutes")
+
+const app = express();
+
+app.use(bodyParser.json())
+app.use(authRoutes)
+
 
 const {MongoClient} = require('mongodb');
 
@@ -15,12 +25,9 @@ client.connect(err => {
   client.close();
 });
 
-const path = require("path")
-const bodyParser = require("body-parser")
 
-const expenses = require("./routes/expenses")
 
-const app = express();
+
 
 app.get('/', (req, res) => {
   res.send('Hi there!')
