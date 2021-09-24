@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 //ACTION TYPES
 const ADD_EXPENSE = 'ADD_EXPENSE'
 const GET_EXPENSES = 'GET_EXPENSES'
@@ -13,7 +15,7 @@ const addExpense = expense => {
   }
 }
 
-const getExpenses = expenses => {
+const _getExpenses = expenses => {
   return {
     type: GET_EXPENSES,
     expenses
@@ -36,17 +38,16 @@ const updateExpenses = expense =>{
 }
 
 //THUNKS
-export const getExpense = () => {
-return async (dispatch) => {
-  try {
-    const {data} = await axios.get(`/api/expense`, 
-  });
-    dispatch(getExpenses(data));
-  } catch (err) {
-    console.log(err)
+export const getExpenses = () => {
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.get('/api/expenses');
+      dispatch(_getExpenses(data));
+    } catch (err) {
+      console.log(err)
+    }
   }
-}
-}
+  }
 
 
 const initialState = {}
