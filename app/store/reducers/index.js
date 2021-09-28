@@ -1,7 +1,7 @@
 import {combineReducers } from 'redux'
 
-import transactionReducer from './transactions'
+import expensesReducer from './expenses'
 
 export default combineReducers({
-  transactions: transactionReducer
+  expenses: expensesReducer
 })

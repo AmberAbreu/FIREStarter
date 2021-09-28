@@ -1,6 +1,6 @@
 'use strict'
 
-const {db, models: {Expenses} } = require('../server/db')
+const {db, models: {Expenses, Categories} } = require('../server/db')
 
 /**
  * seed - this function clears the database, updates tables to
@@ -10,20 +10,35 @@ async function seed() {
   await db.sync({ force: true }) // clears db and matches models to tables
   console.log('db synced!')
 
-  // Creating Users
-  const users = await Promise.all([
-    Expenses.create({ username: 'cody', password: '123' }),
-    Expenses.create({ username: 'murphy', password: '123' }),
+  // Creating Expenses
+  const categories = await Promise.all([
+    Categories.create({ name: 'Nutrition', color: 'blue'}),
+    Categories.create({ name: 'Self Care', color: 'pink'}),
+    Categories.create({ name: 'Utilities', color: 'gray'}),
+    Categories.create({ name: 'Savings', color: 'green'}),
   ])
+  const [Nutrition, SelfCare, Utilities, Savings] = categories
 
-  console.log(`seeded ${users.length} users`)
+
+  // Creating Expenses
+  const expenses = await Promise.all([
+    Expenses.create({ title: 'Grocery', description: 'Vitamin', total: 25 }),
+    Expenses.create({ title: 'Restaurant', description: 'Pasta', total: 40 }),
+    Expenses.create({ title: 'Skin Care Product', description: 'skin care', total: 10 }),
+    Expenses.create({ title: 'Light Bill', description: 'housing expense', total: 60 }),
+    Expenses.create({ title: 'Save', description: 'rainy day fund', total: 100 })
+  ])
+  const [Grocery, Restaurant, SkinCareProduct, LightBill, Save] = expenses
+
+await Nutrition.addExpenses(Grocery)
+await Nutrition.addExpenses(Restaurant)
+await SelfCare.addExpenses(SkinCareProduct)
+await Utilities.addExpenses(LightBill)
+await Savings.addExpenses(Save)
+
+  console.log(`seeded ${expenses.length} users`)
   console.log(`seeded successfully`)
-  return {
-    users: {
-      cody: users[0],
-      murphy: users[1]
-    }
-  }
+  
 }
 
 /*

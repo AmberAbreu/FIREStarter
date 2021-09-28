@@ -1,10 +1,10 @@
-const path = require('path')
 const express = require('express')
-const morgan = require('morgan')
 const app = express()
+const port = 3000
+const morgan = require('morgan')
 module.exports = app
+const path = require('path')
 
-// logging middleware
 app.use(morgan('dev'))
 
 // body parsing middleware
@@ -14,7 +14,9 @@ app.use(express.json())
 app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))
 
-app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
+app.get('/', (req, res) => {
+  res.status(200).send('Hello World!');
+})
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '..', 'public')))
@@ -41,3 +43,14 @@ app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(err.status || 500).send(err.message || 'Internal server error.')
 })
+
+
+
+// tutorial code:
+// app.get('/', (req, res) => {
+//   res.status(200).send('Hello World!');
+// })
+
+// app.listen(port, () => {
+//   console.log(`App running on port ${port}.`)
+// })
