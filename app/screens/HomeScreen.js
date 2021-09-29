@@ -1,4 +1,8 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { connect } from "react-redux";
+
+import { getCategories } from '../store/categoriesReducer';
+
 import { StyleSheet, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, Image, Animated , FlatList } from 'react-native'
 
 import categoriesData from '../dummydata'
@@ -9,10 +13,16 @@ import CategoryHeader from '../components/Categories'
 
 
 
-export default function HomeScreen({navigation}) {
-  const [categories, setCategories] = React.useState(categoriesData)
 
-  
+
+function HomeScreen(props, {navigation}) {
+  const [categories, setCategories] = React.useState([])
+
+  useEffect(() => {
+    props.getCategories()
+    setCategories(categories)
+  }, [])
+
   const renderItem = ({ item }) => (
     <TouchableOpacity
         onPress={() => navigation.navigate('Details', {itemId: item.id})}
@@ -55,13 +65,25 @@ export default function HomeScreen({navigation}) {
                 numColumns={2}
             />
         </Animated.View>
-        
-        
     </SafeAreaView>
     </View>
 
   )
 }
+
+const mapState = (state) => {
+  return {
+    categories: state.categoriesReducer,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    getCategories: () => dispatch(getCategories()),
+  };
+};
+
+export default connect(mapState, mapDispatch)(HomeScreen);
 
 const styles = StyleSheet.create({
   background: {

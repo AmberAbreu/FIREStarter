@@ -1,14 +1,11 @@
    
 const router = require('express').Router()
-const { models: { Expenses }} = require('../db')
+const { models: { Expenses, Categories }} = require('../db')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const expenses = await Expenses.findAll({
-      // explicitly select only the id and username fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
+    const expenses = await Categories.findAll({
     })
     res.json(expenses)
   } catch (err) {
@@ -18,9 +15,9 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const expense = await Expenses.findByPk(req.params.id)
-    if(expense){
-    res.json(expense)
+    const category = await Categories.findByPk(req.params.id, {include: Expenses})
+    if(category){
+    res.json(category)
     }else{
       next({ message: "some problem occured", status: 404})
     }
