@@ -53,7 +53,6 @@ export const getExpenses = () => {
   return async (dispatch) => {
     try {
       const {data} = await axios.get('/expenses');
-
       dispatch(_getExpenses(data));
     } catch (err) {
       console.log(err)
@@ -65,7 +64,7 @@ export const getCategories = () => {
     try {
       const {data} = await axios.get('http://192.168.1.2:8080/categories/');
       dispatch(_getCategories(data));
-      console.log("this is the res from redux", data)
+      console.log("this is data redux", data)
     } catch (err) {
       console.log(err)
     }

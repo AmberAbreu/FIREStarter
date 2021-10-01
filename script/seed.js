@@ -1,7 +1,10 @@
 'use strict'
 
 const {db, models: {Expenses, Categories} } = require('../server/db')
-
+// const food = require('')
+// const selfcare = require()
+// const utilities = require()
+// const savings = require()
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -11,11 +14,12 @@ async function seed() {
   console.log('db synced!')
 
   // Creating Expenses
+
   const categories = await Promise.all([
-    Categories.create({ name: 'Nutrition', color: 'blue'}),
-    Categories.create({ name: 'Self Care', color: 'pink'}),
-    Categories.create({ name: 'Utilities', color: 'gray'}),
-    Categories.create({ name: 'Savings', color: 'green'}),
+    Categories.create({ name: 'Nutrition', icon: '../assets/icons/food_icon.png', color: 'blue'}),
+    Categories.create({ name: 'Self Care', icon: '../assets/icons/selfcare.png', color: 'pink'}),
+    Categories.create({ name: 'Utilities', icon: '../assets/icons/utilities.png', color: 'gray'}),
+    Categories.create({ name: 'Savings', icon: '../assets/icons/savings.png', color: 'green'}),
   ])
   const [Nutrition, SelfCare, Utilities, Savings] = categories
 

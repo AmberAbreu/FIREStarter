@@ -5,9 +5,10 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const expenses = await Categories.findAll({
+    const categories = await Categories.findAll({
     })
-    res.json(expenses)
+    console.log(categories)
+    res.json(categories)
   } catch (err) {
     next(err)
   }

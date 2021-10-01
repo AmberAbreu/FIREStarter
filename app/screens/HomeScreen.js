@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { connect } from "react-redux";
-
+import food from '../assets/icons/food_icon.png'
 import { getCategories } from '../store/categoriesReducer';
 
 import { StyleSheet, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, Image, Animated , FlatList } from 'react-native'
@@ -12,15 +12,24 @@ import UserInfo from '../components/UserInfo'
 import CategoryHeader from '../components/Categories'
 
 
-
+//OKAY FIGURED OUT HOW TO CONNECT TO AXIOS BUT NOW
+//ON THE AGENDA IS TO FIGURE OUT HOW TO DISPLAY THE DATA
+//ON THE FRONT END.
+//
 
 
 function HomeScreen(props, {navigation}) {
   const [categories, setCategories] = React.useState([])
 
   useEffect(() => {
-    props.getCategories()
-    setCategories(categories)
+    async function fetchData(){
+      props.getCategories()
+      setCategories(props.categories)
+      console.log("called use efect")
+    }
+    fetchData()
+    //console.log("this is the categories state")
+    //console.log(categories)
   }, [])
 
   const renderItem = ({ item }) => (
@@ -41,7 +50,7 @@ function HomeScreen(props, {navigation}) {
     >
 
         <Image
-            source={item.icon}
+            source={{ uri: item.id}}
             style={{
                 width: 20,
                 height: 20,

@@ -6,6 +6,9 @@ const Categories = db.define('categories', {
     type: Sequelize.ENUM('Nutrition', 'Self Care', 'Utilities', 'Savings'),
     allowNull: true
   },
+  icon: {
+    type: Sequelize.STRING
+  },
   color: {
     type: Sequelize.ENUM('blue', 'pink', 'yellow', 'orange', 'red', 'gray', 'black', 'green'),
     allowNull: true
