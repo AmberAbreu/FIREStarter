@@ -7,7 +7,6 @@ router.get('/', async (req, res, next) => {
   try {
     const categories = await Categories.findAll({
     })
-    console.log(categories)
     res.json(categories)
   } catch (err) {
     next(err)
@@ -17,6 +16,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const category = await Categories.findByPk(req.params.id, {include: Expenses})
+    console.log(req.params.id)
     if(category){
     res.json(category)
     }else{
