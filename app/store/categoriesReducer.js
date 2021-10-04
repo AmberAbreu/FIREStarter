@@ -2,7 +2,7 @@ import axios from 'axios'
 
 //ACTION TYPES
 const GET_CATEGORIES = 'GET_CATEGORIES'
-const GET_EXPENSES = 'GET_EXPENSES'
+const GET_CATEGORY = 'GET_CATEGORY'
 
 const ADD_EXPENSE = 'ADD_EXPENSE'
 
@@ -26,10 +26,10 @@ const _getCategories = categories => {
   
 }
 
-const _getExpenses = expenses => {
+const _getCategory = category => {
   return {
-    type: GET_EXPENSES,
-    expenses
+    type: GET_CATEGORY,
+    category
   }
   
 }
@@ -37,7 +37,7 @@ const _getExpenses = expenses => {
 const deleteExpense = expense => {
   return {
     type: DELETE_EXPENSES,
-    expenses
+    expense
   }
 }
 
@@ -49,11 +49,11 @@ const updateExpenses = expense =>{
 }
 
 //THUNKS
-export const getExpenses = () => {
+export const getCategory = (id) => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.get('/expenses');
-      dispatch(_getExpenses(data));
+      const {data} = await axios.get(`http://192.168.1.7:8080/categories/${id}`);
+      dispatch(_getCategory(data));
     } catch (err) {
       console.log(err)
     }
@@ -62,9 +62,8 @@ export const getExpenses = () => {
 export const getCategories = () => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.get('http://192.168.1.2:8080/categories/');
+      const {data} = await axios.get('http://192.168.1.7:8080/categories/');
       dispatch(_getCategories(data));
-      console.log("this is data redux", data)
     } catch (err) {
       console.log(err)
     }
@@ -79,8 +78,8 @@ export default function(state = initialState, action) {
   switch(action.type){
     case GET_CATEGORIES:
     return action.categories
-    case GET_EXPENSES:
-      return state;
+    case GET_CATEGORY:
+      return action.category;
     case ADD_EXPENSE:
       return [...state, action.expense]
     default:

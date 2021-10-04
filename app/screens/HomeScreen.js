@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import {useNavigation} from '@react-navigation/native'
 import { connect } from "react-redux";
 import food from '../assets/icons/food_icon.png'
 import { getCategories } from '../store/categoriesReducer';
@@ -12,25 +13,25 @@ import UserInfo from '../components/UserInfo'
 import CategoryHeader from '../components/Categories'
 
 
-//OKAY FIGURED OUT HOW TO CONNECT TO AXIOS BUT NOW
-//ON THE AGENDA IS TO FIGURE OUT HOW TO DISPLAY THE DATA
-//ON THE FRONT END.
-//
 
 
-function HomeScreen(props, {navigation}) {
+
+function HomeScreen(props) {
   const [categories, setCategories] = React.useState([])
-
+  const navigation = useNavigation()
+ 
   useEffect(() => {
     async function fetchData(){
       props.getCategories()
       setCategories(props.categories)
-      console.log("called use efect")
+
     }
     fetchData()
-    //console.log("this is the categories state")
+    //console.log("this is the ctegories state")
     //console.log(categories)
   }, [])
+
+
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -50,7 +51,7 @@ function HomeScreen(props, {navigation}) {
     >
 
         <Image
-            source={{ uri: item.id}}
+            source={{uri: item.icon}}
             style={{
                 width: 20,
                 height: 20,
