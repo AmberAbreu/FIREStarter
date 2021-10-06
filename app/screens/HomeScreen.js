@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react'
-import {useNavigation} from '@react-navigation/native'
+import {useNavigation,useIsFocused} from '@react-navigation/native'
 import { connect } from "react-redux";
 import food from '../assets/icons/food_icon.png'
 import { getCategories } from '../store/categoriesReducer';
 
 import { StyleSheet, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, Image, Animated , FlatList } from 'react-native'
 
-import categoriesData from '../dummydata'
 import Details from './DetailsScreen'
 
 import UserInfo from '../components/UserInfo'
@@ -17,24 +16,21 @@ import CategoryHeader from '../components/Categories'
 
 
 function HomeScreen(props) {
-  const [categories, setCategories] = React.useState([])
   const navigation = useNavigation()
- 
-  useEffect(() => {
-    async function fetchData(){
-      props.getCategories()
-      setCategories(props.categories)
 
-    }
-    fetchData()
-    //console.log("this is the ctegories state")
-    //console.log(categories)
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      props.getCategories()
+    });
+    
+    
   }, [])
 
 
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
+    <TouchableOpacity 
         onPress={() => navigation.navigate('Details', {itemId: item.id})}
         style={{
             flex: 1,
@@ -69,7 +65,7 @@ function HomeScreen(props) {
       <SafeAreaView style={{ paddingHorizontal: 24 - 5 }}>
         <Animated.View style={{ height: '80%' }}>
             <FlatList
-                data={categories}
+                data={props.categories}
                 renderItem={renderItem}
                 keyExtractor={item => `${item.id}`}
                 numColumns={2}

@@ -7,18 +7,17 @@ import { getCategory } from '../store/categoriesReducer';
 
 export function DetailsScreen(props) {
   const {itemId} = props.route.params
-  let [category, setCategory] = useState([])
+
   
   useEffect(() => {
       props.getCategory(itemId)
-      setCategory(props.category)
       console.log("called use efect details screen", props.category)
-  }, [category])
+  }, [])
 
-  if (category.expenses){
+  if (props.category.expenses){
     return (
       <View
-      
+      key={props.category.expenses.categoryId}
         style={{
           alignItems: "center",
           top: 50,
@@ -26,10 +25,10 @@ export function DetailsScreen(props) {
         }}
       >
         <Text style={{fontSize: 30}}>{props.category.name} Summary</Text>
-        { category.expenses.map((expense) => (
+        { props.category.expenses.map((expense) => (
 
 <View
-  key={props.category.expenses.categoryId}
+  key={props.category.expenses.description}
   style={{
     width: 300,
     borderRadius: 12,
@@ -61,7 +60,7 @@ export function DetailsScreen(props) {
       justifyContent: "center",
       borderBottomStartRadius: 12,
       borderBottomEndRadius: 12,
-      backgroundColor: category.color,
+      backgroundColor: props.category.color,
     }}
   >
     <Text>${expense.total}</Text>
