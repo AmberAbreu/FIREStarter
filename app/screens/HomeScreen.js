@@ -18,7 +18,6 @@ import CategoryHeader from '../components/Categories'
 function HomeScreen(props) {
   const navigation = useNavigation()
 
-  const isFocused = useIsFocused();
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       props.getCategories()
