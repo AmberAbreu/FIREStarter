@@ -6,6 +6,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const categories = await Categories.findAll({
+      include: Expenses
     })
     res.json(categories)
   } catch (err) {
