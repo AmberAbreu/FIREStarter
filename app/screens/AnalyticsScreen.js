@@ -17,8 +17,9 @@ function renderChart( props) {
     const unsubscribe = navigation.addListener('focus', () => {
     props.getCategories()
      });
-    
-  }, [])
+    return unsubscribe;
+  }, [navigation])
+
 
 const windowWidth = Dimensions.get('window').width
 const {categories} = props
@@ -120,7 +121,7 @@ const {categories} = props
 
 
 const mapState = (state) => {
-  console.log("this is state", state)
+
   return {
     categories: state.categoriesReducer,
   };

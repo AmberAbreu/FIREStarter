@@ -28,15 +28,18 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-// router.post('/', async (req, res, next) => {
-//   try {
-//     const createdExpense = await Expense.create(req.body)
-    
-    
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+router.post('/:id', async (req, res, next) => {
+  try {
+    const category = await Categories.findByPk(req.params.id)
+    const createdExpense = await Expenses.create(req.body)
+    category.addExpenses(createdExpense)
+    console.log("before", category)
+    res.send(createdExpense)
+    console.log("after", category)
+  } catch (err) {
+    next(err)
+  }
+})
 
 // router.put('/', async (req, res, next) => {
 //   try {

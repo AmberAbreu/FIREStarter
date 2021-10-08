@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { connect } from "react-redux";
-import { TouchableOpacity, Button, Text, StyleSheet, View, Image } from 'react-native'
+import { TouchableOpacity, Button, Text, StyleSheet, View, Image, FlatList } from 'react-native'
 
 import { getCategory } from '../store/categoriesReducer';
 
@@ -14,6 +14,47 @@ export function DetailsScreen(props) {
       console.log("called use efect details screen", props.category)
   }, [])
 
+  const renderItem = ({item}) => (
+
+      <View
+        style={{
+          width: 300,
+          borderRadius: 12,
+          margin: 10,
+          backgroundColor: "white",
+          ...styles.shadow,
+        }}
+      >
+        
+        {/* Title */}
+        <View
+          style={{ flexDirection: "row", padding: 24, alignItems: "center" }}
+        ></View>
+      
+        {/* Expense Description */}
+        <View style={{ paddingHorizontal: 24 }}>
+          {/* Title and description */}
+          <Text style={{ fontSize: 22 }}>{item.title}</Text>
+          <Text style={{ fontSize: 16, flexWrap: "wrap", color: "gray" }}>
+            {item.description}
+          </Text>
+        </View>
+      
+        {/* Price */}
+        <View
+          style={{
+            height: 50,
+            alignItems: "center",
+            justifyContent: "center",
+            borderBottomStartRadius: 12,
+            borderBottomEndRadius: 12,
+            backgroundColor: props.category.color,
+          }}
+        >
+          <Text>${item.total}</Text>
+        </View>
+      </View>
+  )
   if (props.category.expenses){
     return (
       <View
@@ -25,48 +66,11 @@ export function DetailsScreen(props) {
         }}
       >
         <Text style={{fontSize: 30}}>{props.category.name} Summary</Text>
-        { props.category.expenses.map((expense) => (
-
-<View
-  key={props.category.expenses.description}
-  style={{
-    width: 300,
-    borderRadius: 12,
-    margin: 10,
-    backgroundColor: "white",
-    ...styles.shadow,
-  }}
->
-  
-  {/* Title */}
-  <View
-    style={{ flexDirection: "row", padding: 24, alignItems: "center" }}
-  ></View>
-
-  {/* Expense Description */}
-  <View style={{ paddingHorizontal: 24 }}>
-    {/* Title and description */}
-    <Text style={{ fontSize: 22 }}>{expense.title}</Text>
-    <Text style={{ fontSize: 16, flexWrap: "wrap", color: "gray" }}>
-      {expense.description}
-    </Text>
-  </View>
-
-  {/* Price */}
-  <View
-    style={{
-      height: 50,
-      alignItems: "center",
-      justifyContent: "center",
-      borderBottomStartRadius: 12,
-      borderBottomEndRadius: 12,
-      backgroundColor: props.category.color,
-    }}
-  >
-    <Text>${expense.total}</Text>
-  </View>
-</View>
-))}
+        <FlatList
+                data={props.category.expenses}
+                renderItem={renderItem}
+                keyExtractor={item => `${item.id}`}
+            />
         <Button title="+"
         onPress={() => {}}
         />
