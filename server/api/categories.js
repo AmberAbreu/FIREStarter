@@ -33,9 +33,7 @@ router.post('/:id', async (req, res, next) => {
     const category = await Categories.findByPk(req.params.id)
     const createdExpense = await Expenses.create(req.body)
     category.addExpenses(createdExpense)
-    console.log("before", category)
     res.send(createdExpense)
-    console.log("after", category)
   } catch (err) {
     next(err)
   }
@@ -55,14 +53,9 @@ router.post('/:id', async (req, res, next) => {
 //   }
 // })
 
-// router.delete('/', async (req, res, next) => {
+// router.delete('/:id', async (req, res, next) => {
 //   try {
-//     const users = await Expenses.findByPk({
-//       // explicitly select only the id and username fields - even though
-//       // users' passwords are encrypted, it won't help if we just
-//       // send everything to anyone who asks!
-      
-//     })
+//     const category = await Categories.findByPk(req.params.id)
 //     res.json(users)
 //   } catch (err) {
 //     next(err)
