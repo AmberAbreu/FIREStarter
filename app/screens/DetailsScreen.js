@@ -73,7 +73,7 @@ export function DetailsScreen(props) {
         <Button title="+"
         onPress={() => setModalVisible(!modalVisible)}
         />
-        <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+        <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible} itemId={itemId}/>
         </View>
         
         <FlatList

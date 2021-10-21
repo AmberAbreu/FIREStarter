@@ -6,12 +6,12 @@ const GET_CATEGORY = 'GET_CATEGORY'
 
 const ADD_EXPENSE = 'ADD_EXPENSE'
 
-const DELETE_EXPENSES = 'DELETE_EXPENSE'
+const DELETE_EXPENSE = 'DELETE_EXPENSE'
 const UPDATE_EXPENSE = 'UPDATE_EXPENSE'
 
 //ACTION CREATORS
 
-const addExpense = expense => {
+const _addExpense = expense => {
   return {
     type: ADD_EXPENSE,
     expense
@@ -34,9 +34,9 @@ const _getCategory = category => {
   
 }
 
-const deleteExpense = expense => {
+const _deleteExpense = expense => {
   return {
-    type: DELETE_EXPENSES,
+    type: DELETE_EXPENSE,
     expense
   }
 }
@@ -70,8 +70,27 @@ export const getCategories = () => {
   }
   }
 
+  export const deleteExpense = () => {
+    return async (dispatch) => {
+      try {
+        const {data} = await axios.delete('http://192.168.1.145:8080/categories/');
+        dispatch(_deleteExpense(data));
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    }
 
-
+    export const addExpense = (addedExpense, id) => {
+      return async (dispatch) => {
+        try {
+          const {data} = await axios.post(`http://192.168.1.145:8080/categories/${id}`, addedExpense);
+          dispatch(_addExpense(data));
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      }
 const initialState = [];
 
 export default function(state = initialState, action) {
@@ -81,7 +100,11 @@ export default function(state = initialState, action) {
     case GET_CATEGORY:
       return action.category;
     case ADD_EXPENSE:
-      return [...state, action.expense]
+      return Object.assign(state, action.expense)
+      //return [...state, action.expense]
+    case DELETE_EXPENSE:
+      return [...state.filter(expense => expense.id !== action.expense.id)]
+  
     default:
       return state;
   }

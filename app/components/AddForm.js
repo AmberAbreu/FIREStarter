@@ -1,23 +1,30 @@
 import React, {useEffect} from 'react'
-import { View, Text, Modal, Pressable, StyleSheet, Button } from 'react-native'
+import { connect } from "react-redux";
+import { View, Text, Modal, Pressable, StyleSheet, Button , TextInput} from 'react-native'
 import {useForm, Controller} from 'react-hook-form'
+
+import { addExpense } from '../store/categoriesReducer';
 
 import TextInputField from '../components/TextInputField'
 
-export default function AddForm({modalVisible, setModalVisible}) {
+export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
   const { control, handleSubmit, formState: {errors, isValid} } = useForm({mode:'onBlur'});
-  const onSubmit = data => console.log(data)
+  const onSubmit = data => {
+    addExpense(data, itemId)
+    console.log(itemId)
+    console.log(data)
+  }
 
 
   return (
     <View>
       <Modal
-      animationType="slide"
-      transparent="true"
-      visible={modalVisible}
-      onRequestClose={() => {
-        setModalVisible(!modalVisible)
-      }}
+        animationType="slide"
+        transparent="true"
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -27,27 +34,77 @@ export default function AddForm({modalVisible, setModalVisible}) {
               onPress={() => setModalVisible(!modalVisible)}
             >
               <Controller
-              control={control}
-              name="name"
-              render={({field: {onChange, value, onBlur}}) => (
-                <TextInputField
-                value={value}
-                onBlur={onBlur}
-                onChangeText={value => onChange(value)}
-                />
-                
-              )}
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    style={styles.input}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    placeholder="first"
+                    value={value}
+                  />
+                )}
+                name="title"
+                defaultValue=""
               />
-              <Button title="Submit" onPress={handleSubmit(onSubmit)}/>
-      
+
+              <Controller
+                control={control}
+                rules={{
+                  maxLength: 100,
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    style={styles.input}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    placeholder="second"
+                    value={value}
+                  />
+                )}
+                name="description"
+                defaultValue=""
+              />
+              <Controller
+                control={control}
+                rules={{
+                  maxLength: 100,
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    style={styles.input}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    placeholder="price"
+                    value={value}
+                  />
+                )}
+                name="total"
+                defaultValue=""
+              />
+              <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+
               <Text style={styles.textStyle}>Cancel</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
     </View>
-  )
+  );
 }
+
+
+
+const mapDispatch = (dispatch) => {
+  return {
+    addExpense: (data, id) => dispatch(addExpense(data, id)),
+  };
+};
+
+export default connect(null, mapDispatch)(AddForm);
 
 const styles = StyleSheet.create({
   centeredView: {
