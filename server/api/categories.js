@@ -53,11 +53,11 @@ router.post('/:id', async (req, res, next) => {
 //   }
 // })
 
-// router.delete('/:id', async (req, res, next) => {
-//   try {
-//     const category = await Categories.findByPk(req.params.id)
-//     res.json(users)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const category = await Categories.findByPk(req.params.id)
+    res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})

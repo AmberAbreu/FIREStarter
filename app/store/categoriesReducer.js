@@ -52,7 +52,7 @@ const updateExpenses = expense =>{
 export const getCategory = (id) => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.get(`http://192.168.1.6:8080/categories/${id}`);
+      const {data} = await axios.get(`http://192.168.1.145:8080/categories/${id}`);
       dispatch(_getCategory(data));
     } catch (err) {
       console.log(err)
@@ -62,7 +62,7 @@ export const getCategory = (id) => {
 export const getCategories = () => {
   return async (dispatch) => {
     try {
-      const {data} = await axios.get('http://192.168.1.6:8080/categories/');
+      const {data} = await axios.get('http://192.168.1.145:8080/categories/');
       dispatch(_getCategories(data));
     } catch (err) {
       console.log(err)

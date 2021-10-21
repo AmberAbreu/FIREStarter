@@ -4,10 +4,12 @@ import { TouchableOpacity, Button, Text, StyleSheet, View, Image, FlatList } fro
 
 import { getCategory } from '../store/categoriesReducer';
 
+import AddForm from '../components/AddForm'
+
 
 export function DetailsScreen(props) {
   const {itemId} = props.route.params
-
+  const [modalVisible, setModalVisible] = useState(false)
   
   useEffect(() => {
       props.getCategory(itemId)
@@ -63,17 +65,23 @@ export function DetailsScreen(props) {
           alignItems: "center",
           top: 50,
           margin: 20,
+          height: "90%"
         }}
       >
+        <View style={{flexDirection: "row"}}>
         <Text style={{fontSize: 30}}>{props.category.name} Summary</Text>
+        <Button title="+"
+        onPress={() => setModalVisible(!modalVisible)}
+        />
+        <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible}/>
+        </View>
+        
         <FlatList
                 data={props.category.expenses}
                 renderItem={renderItem}
                 keyExtractor={item => `${item.id}`}
             />
-        <Button title="+"
-        onPress={() => {}}
-        />
+
       </View> 
     ); 
   }else return <Text>None yet</Text>
