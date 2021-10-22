@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { connect } from "react-redux";
-import { TouchableOpacity, Button, Text, StyleSheet, View, Image, FlatList } from 'react-native'
+import { TouchableOpacity, Button, Text, StyleSheet, View, Image, FlatList, Pressable } from 'react-native'
 
 import { getCategory } from '../store/categoriesReducer';
 
@@ -18,7 +18,7 @@ export function DetailsScreen(props) {
 
   const renderItem = ({item}) => (
 
-      <View
+      <Pressable
         style={{
           width: 300,
           borderRadius: 12,
@@ -31,7 +31,9 @@ export function DetailsScreen(props) {
         {/* Title */}
         <View
           style={{ flexDirection: "row", padding: 24, alignItems: "center" }}
-        ></View>
+        ><Button title="edit"
+        onPress={() => setModalVisible(!modalVisible)}
+        /></View>
       
         {/* Expense Description */}
         <View style={{ paddingHorizontal: 24 }}>
@@ -55,7 +57,7 @@ export function DetailsScreen(props) {
         >
           <Text>${item.total}</Text>
         </View>
-      </View>
+      </Pressable>
   )
   if (props.category.expenses){
     return (

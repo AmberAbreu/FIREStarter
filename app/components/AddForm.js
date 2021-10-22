@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { connect } from "react-redux";
-import { View, Text, Modal, Pressable, StyleSheet, Button , TextInput} from 'react-native'
+import { View, Text, Modal, Pressable, StyleSheet, Button } from 'react-native'
 import {useForm, Controller} from 'react-hook-form'
 
 import { addExpense } from '../store/categoriesReducer';
@@ -28,22 +28,23 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+            <Text style={styles.modalText}>Add an expense</Text>
             <Pressable
-              style={[styles.button, styles.buttonClose]}
+              style={[styles.button, styles.buttonClose, styles.innerModal]}
               onPress={() => setModalVisible(!modalVisible)}
             >
               <Controller
                 control={control}
                 rules={{
-                  required: true,
+                  value: true,
+                  message: 'Title of expense is required.'
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
+                  <TextInputField
+                  error={errors.title}
+                  errorText={errors.title?.message}
                     onChangeText={onChange}
-                    placeholder="first"
+                    placeholder="title"
                     value={value}
                   />
                 )}
@@ -55,13 +56,12 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
                 control={control}
                 rules={{
                   maxLength: 100,
+                  required: false
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
+                  <TextInputField
                     onChangeText={onChange}
-                    placeholder="second"
+                    placeholder="description"
                     value={value}
                   />
                 )}
@@ -69,21 +69,23 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
                 defaultValue=""
               />
               <Controller
+                defaultValue=""
                 control={control}
-                rules={{
-                  maxLength: 100,
-                }}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <TextInput
-                    style={styles.input}
-                    onBlur={onBlur}
+                  <TextInputField
+                    error={errors.total}
+                    errorText={errors.total?.message}
                     onChangeText={onChange}
-                    placeholder="price"
+                    placeholder="amount spent"
                     value={value}
                   />
                 )}
                 name="total"
-                defaultValue=""
+                rules={{
+                  maxLength: 100,
+                  value: true,
+                  message: 'Title of expense is required.'
+                }}
               />
               <Button title="Submit" onPress={handleSubmit(onSubmit)} />
 
@@ -113,8 +115,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22
   },
+  innerModal: {
+    height: '90%',
+    width: '90%',
+    justifyContent: 'flex-start'
+  },
   modalView: {
     margin: 20,
+    height: '70%',
+    width: '70%',
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
