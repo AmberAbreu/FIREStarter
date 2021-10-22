@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { connect } from "react-redux";
 import { TouchableOpacity, Button, Text, StyleSheet, View, Image, FlatList, Pressable } from 'react-native'
 
-import { getCategory } from '../store/categoriesReducer';
+import { getCategory, deleteExpense } from '../store/categoriesReducer';
 
 import AddForm from '../components/AddForm'
 
@@ -31,8 +31,8 @@ export function DetailsScreen(props) {
         {/* Title */}
         <View
           style={{ flexDirection: "row", padding: 24, alignItems: "center" }}
-        ><Button title="edit"
-        onPress={() => setModalVisible(!modalVisible)}
+        ><Button title="delete"
+        onPress={() => props.deleteExpense(item.id)}
         /></View>
       
         {/* Expense Description */}
@@ -99,6 +99,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getCategory: (id) => dispatch(getCategory(id)),
+    deleteExpense: (id) => dispatch(deleteExpense(id))
   };
 };
 

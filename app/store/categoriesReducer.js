@@ -70,10 +70,10 @@ export const getCategories = () => {
   }
   }
 
-  export const deleteExpense = () => {
+  export const deleteExpense = (id) => {
     return async (dispatch) => {
       try {
-        const {data} = await axios.delete('http://192.168.1.145:8080/categories/');
+        const {data} = await axios.delete(`http://192.168.1.145:8080/categories/${id}`);
         dispatch(_deleteExpense(data));
       } catch (err) {
         console.log(err)
@@ -101,10 +101,9 @@ export default function(state = initialState, action) {
       return action.category;
     case ADD_EXPENSE:
       return Object.assign(state, action.expense)
-      //return [...state, action.expense]
     case DELETE_EXPENSE:
-      return [...state.filter(expense => expense.id !== action.expense.id)]
-  
+      return Object.assign(state, Object.keys(state).filter(category => category.id !== action.expense) )
+      //return [...state.filter(expense => expense.id !== action.expense.id)]
     default:
       return state;
   }

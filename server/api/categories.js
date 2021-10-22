@@ -55,8 +55,9 @@ router.post('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    const category = await Categories.findByPk(req.params.id)
-    res.json(users)
+    const expense = await Expenses.findByPk(req.params.id)
+    await expense.destroy()
+    res.json(expense)
   } catch (err) {
     next(err)
   }
