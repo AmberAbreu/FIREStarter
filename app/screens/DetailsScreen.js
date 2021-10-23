@@ -13,8 +13,7 @@ export function DetailsScreen(props) {
   
   useEffect(() => {
       props.getCategory(itemId)
-      console.log("called use efect details screen", props.category)
-  }, [])
+  }, [props.category.expenses])
 
   const renderItem = ({item}) => (
 
@@ -62,7 +61,7 @@ export function DetailsScreen(props) {
   if (props.category.expenses){
     return (
       <View
-      key={props.category.expenses.categoryId}
+        key={props.category.expenses.categoryId}
         style={{
           alignItems: "center",
           top: 50,
