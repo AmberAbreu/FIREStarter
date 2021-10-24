@@ -4,6 +4,9 @@ import { TouchableOpacity, Button, Text, StyleSheet, View, Image, FlatList, Pres
 
 import { getCategory, deleteExpense } from '../store/categoriesReducer';
 
+import {AntDesign} from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import AddForm from '../components/AddForm'
 
 
@@ -26,13 +29,14 @@ export function DetailsScreen(props) {
           ...styles.shadow,
         }}
       >
-        
+
         {/* Title */}
         <View
           style={{ flexDirection: "row", padding: 24, alignItems: "center" }}
-        ><Button title="delete"
+        ><MaterialCommunityIcons name="delete-forever" size={24} color="black"
         onPress={() => props.deleteExpense(item.id)}
         /></View>
+        <AntDesign name="edit" size={24} color="black" />
       
         {/* Expense Description */}
         <View style={{ paddingHorizontal: 24 }}>
