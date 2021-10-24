@@ -41,7 +41,7 @@ const _deleteExpense = expense => {
   }
 }
 
-const updateExpenses = expense =>{
+const _updateExpense = expense =>{
   return {
     type: UPDATE_EXPENSE,
     expense
@@ -91,6 +91,20 @@ export const getCategories = () => {
         }
       }
       }
+
+
+export const updateExpense = (updatedExpense, id) => {
+      return async (dispatch) => {
+        try {
+          const {data} = await axios.post(`http://192.168.1.145:8080/categories/${id}`, updatedExpense);
+          dispatch(_updatedExpense(data));
+        } catch (err) {
+          console.log(err)
+        }
+      }
+      }
+
+
 const initialState = [];
 
 export default function(state = initialState, action) {
@@ -104,6 +118,8 @@ export default function(state = initialState, action) {
     case DELETE_EXPENSE:
       return Object.assign(state, Object.keys(state).filter(category => category.id !== action.expense) )
       //return [...state.filter(expense => expense.id !== action.expense.id)]
+    case UPDATE_EXPENSE:
+      return Object.assign(state, Object.keys(state).map(expense => expense.id === action.expense.id ? action.expense : expense))
     default:
       return state;
   }
