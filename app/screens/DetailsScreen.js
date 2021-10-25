@@ -13,10 +13,10 @@ import AddForm from '../components/AddForm'
 export function DetailsScreen(props) {
   const {itemId} = props.route.params
   const [modalVisible, setModalVisible] = useState(false)
-  
+  const [edit, setEdit] = useState(true)
   useEffect(() => {
       props.getCategory(itemId)
-  }, [props.category.expenses])
+  }, [itemId])
 
   const renderItem = ({item}) => (
 
@@ -33,10 +33,17 @@ export function DetailsScreen(props) {
         {/* Title */}
         <View
           style={{ flexDirection: "row", padding: 24, alignItems: "center" }}
-        ><MaterialCommunityIcons name="delete-forever" size={24} color="black"
-        onPress={() => props.deleteExpense(item.id)}
-        /></View>
-        <AntDesign name="edit" size={24} color="black" />
+        >
+          <MaterialCommunityIcons name="delete-forever" size={24} color="black"
+           onPress={() => props.deleteExpense(item.id)}
+          />
+        </View>
+
+        <AntDesign 
+        name="edit" size={24} color="black" 
+        onPress={() => setModalVisible(true)}
+        />
+        <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible} itemId={itemId} itemTitle={item.title} itemDescription={item.description} itemTotal={item.total.toString()} isAddMode={false}/>
       
         {/* Expense Description */}
         <View style={{ paddingHorizontal: 24 }}>
@@ -78,7 +85,7 @@ export function DetailsScreen(props) {
         <Button title="+"
         onPress={() => setModalVisible(!modalVisible)}
         />
-        <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible} itemId={itemId}/>
+        <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible} itemId={itemId} isAddMode={true}/>
         </View>
         
         <FlatList

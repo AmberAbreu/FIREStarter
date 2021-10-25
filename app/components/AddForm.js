@@ -3,17 +3,19 @@ import { connect } from "react-redux";
 import { View, Text, Modal, Pressable, StyleSheet, Button } from 'react-native'
 import {useForm, Controller} from 'react-hook-form'
 
-import { addExpense } from '../store/categoriesReducer';
+import { addExpense, updateExpense } from '../store/categoriesReducer';
 
 import TextInputField from '../components/TextInputField'
 
-export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
+export function AddForm({modalVisible, setModalVisible, addExpense, itemId, itemTitle, itemDescription, itemTotal, isAddMode}) {
   const { control, handleSubmit, formState: {errors, isValid} } = useForm({mode:'onBlur'});
+
   const onSubmit = data => {
+    return isAddMode ?
     addExpense(data, itemId)
-    console.log(itemId)
-    console.log(data)
+    : updatedExpense(data, itemId)
   }
+
 
 
   return (
@@ -49,7 +51,7 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
                   />
                 )}
                 name="title"
-                defaultValue=""
+                defaultValue={itemTitle? itemTitle : ""}
               />
 
               <Controller
@@ -66,10 +68,10 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
                   />
                 )}
                 name="description"
-                defaultValue=""
+                defaultValue={itemDescription? itemDescription : ""}
               />
               <Controller
-                defaultValue=""
+                defaultValue={itemTotal? itemTotal : ""}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInputField
@@ -103,6 +105,7 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
 const mapDispatch = (dispatch) => {
   return {
     addExpense: (data, id) => dispatch(addExpense(data, id)),
+    editExpense: (data, id) => dispatch(editExpense(data, id)),
   };
 };
 
