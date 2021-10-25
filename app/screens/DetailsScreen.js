@@ -13,7 +13,13 @@ import AddForm from '../components/AddForm'
 export function DetailsScreen(props) {
   const {itemId} = props.route.params
   const [modalVisible, setModalVisible] = useState(false)
-  const [edit, setEdit] = useState(true)
+
+const [edit, setEdit] = useState({
+    title: '',
+    description: '',
+    value: ''
+  })
+
   useEffect(() => {
       props.getCategory(itemId)
   }, [itemId])
@@ -41,7 +47,7 @@ export function DetailsScreen(props) {
 
         <AntDesign 
         name="edit" size={24} color="black" 
-        onPress={() => setModalVisible(true)}
+        onPress={() => setModalVisible(true)}//refer to the todo list project to help with this.
         />
         <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible} itemId={itemId} itemTitle={item.title} itemDescription={item.description} itemTotal={item.total.toString()} isAddMode={false}/>
       

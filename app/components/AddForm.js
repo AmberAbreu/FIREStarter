@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import { connect } from "react-redux";
 import { View, Text, Modal, Pressable, StyleSheet, Button } from 'react-native'
 import {useForm, Controller} from 'react-hook-form'
@@ -9,7 +9,7 @@ import TextInputField from '../components/TextInputField'
 
 export function AddForm({modalVisible, setModalVisible, addExpense, itemId, itemTitle, itemDescription, itemTotal, isAddMode}) {
   const { control, handleSubmit, formState: {errors, isValid} } = useForm({mode:'onBlur'});
-
+  
   const onSubmit = data => {
     return isAddMode ?
     addExpense(data, itemId)
