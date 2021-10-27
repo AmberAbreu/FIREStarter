@@ -8,21 +8,32 @@ import {AntDesign} from '@expo/vector-icons'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import AddForm from '../components/AddForm'
+import EditForm from '../components/EditForm'
 
 
 export function DetailsScreen(props) {
   const {itemId} = props.route.params
   const [modalVisible, setModalVisible] = useState(false)
+  const [editModalVisible, setEditModalVisible] = useState(false)
 
-const [edit, setEdit] = useState({
-    title: '',
-    description: '',
-    value: ''
+const [inputs, setInputs] = useState({
+    title: "",
+    description: "",
+    total: 0
   })
-
   useEffect(() => {
       props.getCategory(itemId)
   }, [itemId])
+
+  function handleEdit(item){
+    setInputs({
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      total: item.total.toString()
+    })
+    setEditModalVisible(!editModalVisible)
+  }
 
   const renderItem = ({item}) => (
 
@@ -47,9 +58,9 @@ const [edit, setEdit] = useState({
 
         <AntDesign 
         name="edit" size={24} color="black" 
-        onPress={() => setModalVisible(true)}//refer to the todo list project to help with this.
+        onPress={() => handleEdit(item)}
         />
-        <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible} itemId={itemId} itemTitle={item.title} itemDescription={item.description} itemTotal={item.total.toString()} isAddMode={false}/>
+        <EditForm setModalVisible={setEditModalVisible} modalVisible={editModalVisible} inputs={inputs} setInputs={setInputs}/>
       
         {/* Expense Description */}
         <View style={{ paddingHorizontal: 24 }}>
@@ -91,7 +102,7 @@ const [edit, setEdit] = useState({
         <Button title="+"
         onPress={() => setModalVisible(!modalVisible)}
         />
-        <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible} itemId={itemId} isAddMode={true}/>
+        <AddForm setModalVisible={setModalVisible} modalVisible={modalVisible} itemId={itemId} />
         </View>
         
         <FlatList

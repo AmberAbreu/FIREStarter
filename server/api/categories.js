@@ -43,6 +43,7 @@ router.put('/:id', async (req, res, next) => {
   try {
     const expense = await Expenses.findByPk(req.params.id)
     const updatedExpense = await expense.update(req.body)
+    console.log("put route activated")
     res.json(updatedExpense)
   } catch (err) {
     next(err)

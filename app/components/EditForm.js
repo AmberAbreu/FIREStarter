@@ -2,19 +2,31 @@ import React, {useEffect, useState} from 'react'
 import { connect } from "react-redux";
 import { View, Text, Modal, Pressable, StyleSheet, Button } from 'react-native'
 import {useForm, Controller} from 'react-hook-form'
-
-import { addExpense} from '../store/categoriesReducer';
-
+import { updateExpense} from '../store/categoriesReducer';
 import TextInputField from '../components/TextInputField'
 
 
-export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
+export function EditForm({modalVisible, setModalVisible, updateExpense, expenseId, inputs, setInputs}) {
   const { control, handleSubmit, formState: {errors, isValid} } = useForm({mode:'onBlur'});
-  
+
+
+  // const editSubmit = (data, expenseId) => {
+  //   updateExpense(data, expenseId)
+  //   setInputs({
+  //     title: "",
+  //     description: "",
+  //     total: 0
+  //   })
+  // }
 
   const onSubmit = data => {
-    addExpense(data, itemId)
+    updateExpense(data, inputs.id)
   }
+
+  useEffect(() => {
+    console.log("these are the inputs", inputs.id);
+  }, [])
+
   return (
     <View>
       <Modal
@@ -48,7 +60,7 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
                   />
                 )}
                 name="title"
-                defaultValue=""
+                defaultValue={inputs.title}
               />
 
               <Controller
@@ -65,10 +77,10 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
                   />
                 )}
                 name="description"
-                defaultValue=""
+                defaultValue={inputs.description}
               />
               <Controller
-                defaultValue=""
+                defaultValue={inputs.total}
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextInputField
@@ -101,11 +113,11 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
 
 const mapDispatch = (dispatch) => {
   return {
-    addExpense: (data, id) => dispatch(addExpense(data, id)),
+    updateExpense: (data, id) => dispatch(updateExpense(data, id)),
   };
 };
 
-export default connect(null, mapDispatch)(AddForm);
+export default connect(null, mapDispatch)(EditForm);
 
 const styles = StyleSheet.create({
   centeredView: {

@@ -96,7 +96,8 @@ export const getCategories = () => {
 export const updateExpense = (updatedExpense, id) => {
       return async (dispatch) => {
         try {
-          const {data} = await axios.post(`http://192.168.1.145:8080/categories/${id}`, updatedExpense);
+          const {data} = await axios.put(`http://192.168.1.145:8080/categories/${id}`, updatedExpense);
+          console.log("the update thunk has been called");
           dispatch(_updatedExpense(data));
         } catch (err) {
           console.log(err)
