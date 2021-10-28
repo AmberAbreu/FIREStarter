@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button , Platform, } from 'react-native';
 
 import HomeScreen from './app/screens/HomeScreen'
 import DetailsScreen from './app/screens/DetailsScreen'
-import AnalyticsScreen from './app/screens/AnalyticsScreen'
+import AnalyticsScreen from './app/screens/UserScreen'
 //Redux
 import {Provider} from 'react-redux'
 import store from './app/store'
@@ -14,6 +14,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 import {createBottomTabNavigator, } from '@react-navigation/bottom-tabs'
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 
@@ -41,10 +42,27 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator
-        screenOptions={{headerShown: false}}
+        screenOptions={
+          ({ route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+            if (route.name === 'Home') {
+              iconName = focused
+              ? 'ios-information-circle'
+              : 'ios-information-circle-outline'
+            }else if (route.name === 'Profile') {
+              iconName = focused ? 'ios-home' : 'ios-list';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+          headerShown:false
+        })
+        }
         >
           <Tab.Screen name="Home" component={HomeStackScreen}/>
-          <Tab.Screen name="Analytics" component={AnalyticsScreen} />
+          <Tab.Screen name="Profile" component={AnalyticsScreen} />
         </Tab.Navigator> 
       
       </NavigationContainer>

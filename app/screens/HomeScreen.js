@@ -4,12 +4,15 @@ import { connect } from "react-redux";
 import food from '../assets/icons/food_icon.png'
 import { getCategories } from '../store/categoriesReducer';
 
-import { StyleSheet, Text, View, ImageBackground, SafeAreaView, TouchableOpacity, Image, Animated , FlatList } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, ScrollView, SafeAreaView, TouchableOpacity, Image, Animated , FlatList } from 'react-native'
+
+import { Entypo, AntDesign } from '@expo/vector-icons'; 
+
 
 import Details from './DetailsScreen'
-
 import UserInfo from '../components/UserInfo'
-import CategoryHeader from '../components/Categories'
+import Chart from '../components/Chart'
+
 
 
 
@@ -17,12 +20,12 @@ import CategoryHeader from '../components/Categories'
 
 function HomeScreen(props) {
   const navigation = useNavigation()
+  const [viewMode, setViewMode] = React.useState("list")
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       props.getCategories()
     });
-    
     
   }, [])
 
@@ -60,7 +63,64 @@ function HomeScreen(props) {
   return (
     <View>
       <UserInfo/>
-      <CategoryHeader/>
+      <View
+      style={{
+        flexDirection: "row",
+        padding: 24,
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      {/* Title */}
+      <View>
+        <Text style={{ color: "blue", fontSize: 16 }}>CATEGORIES</Text>
+      </View>
+
+      {/* Button */}
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: viewMode == "chart" ? "pink" : null,
+            height: 50,
+            width: 50,
+            borderRadius: 25,
+          }}
+          onPress={() => setViewMode("chart")}
+        >
+        <AntDesign 
+        name="piechart" 
+        size={24} 
+        color={viewMode == "chart" ? "white" : "gray"} />
+         
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: viewMode == "list" ? "pink" : null,
+            height: 50,
+            width: 50,
+            borderRadius: 25,
+            marginLeft: 8,
+          }}
+          onPress={() => setViewMode("list")}
+        >
+
+        <Entypo 
+        name="menu" 
+        size={24} 
+        color={viewMode == "list" ? "white" : "gray"} 
+        />
+          
+        </TouchableOpacity>
+      </View>
+    </View>
+    {/* CHART OR LIST */}
+
+    { viewMode === "list" ?
       <SafeAreaView style={{ paddingHorizontal: 24 - 5 }}>
         <Animated.View style={{ height: '80%' }}>
             <FlatList
@@ -70,7 +130,12 @@ function HomeScreen(props) {
                 numColumns={2}
             />
         </Animated.View>
-    </SafeAreaView>
+      </SafeAreaView>
+      :
+      <View> 
+        <Chart/>
+      </View>
+    }
     </View>
 
   )
