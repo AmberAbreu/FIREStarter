@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { TouchableOpacity, Button, Text, StyleSheet, View, Image, FlatList, Pressable } from 'react-native'
 
 import { getCategory, deleteExpense } from '../store/categoriesReducer';
-
+import Spinner from '../components/Spinner'
 import {AntDesign} from '@expo/vector-icons'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -111,7 +111,7 @@ const [inputs, setInputs] = useState({
 
       </View> 
     ); 
-  }else return <Text>None yet</Text>
+  }else return <Spinner/>
   
 }
 
