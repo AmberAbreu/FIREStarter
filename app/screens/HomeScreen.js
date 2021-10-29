@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react'
 import {useNavigation,useIsFocused} from '@react-navigation/native'
 import { connect } from "react-redux";
-import food from '../assets/icons/food_icon.png'
 import { getCategories } from '../store/categoriesReducer';
 
 import { StyleSheet, Text, View, ImageBackground, ScrollView, SafeAreaView, TouchableOpacity, Image, Animated , FlatList } from 'react-native'
@@ -12,10 +11,7 @@ import { Entypo, AntDesign } from '@expo/vector-icons';
 import Details from './DetailsScreen'
 import UserInfo from '../components/UserInfo'
 import Chart from '../components/Chart'
-
-
-
-
+import flower from '../assets/double-bubble-outline.png'
 
 
 function HomeScreen(props) {
@@ -56,12 +52,12 @@ function HomeScreen(props) {
                 tintColor: item.color
             }}
         />
-        <Text style={{ marginLeft: 8, color: "blue", fontSize: 14 }}>{item.name}</Text>
+        <Text style={{ marginLeft: 8, color: item.color, fontSize: 18 }}>{item.name}</Text>
         
     </TouchableOpacity>
 )
   return (
-    <View>
+    <ImageBackground source={flower}  resizeMode="cover" style={styles.image}>
       <UserInfo/>
       <View
       style={{
@@ -73,7 +69,7 @@ function HomeScreen(props) {
     >
       {/* Title */}
       <View>
-        <Text style={{ color: "blue", fontSize: 16 }}>CATEGORIES</Text>
+        <Text style={{ color: "#966892", fontSize: 20 }}>CATEGORIES</Text>
       </View>
 
       {/* Button */}
@@ -82,7 +78,7 @@ function HomeScreen(props) {
           style={{
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: viewMode == "chart" ? "pink" : null,
+            backgroundColor: viewMode == "chart" ? "#966892" : null,
             height: 50,
             width: 50,
             borderRadius: 25,
@@ -100,7 +96,7 @@ function HomeScreen(props) {
           style={{
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: viewMode == "list" ? "pink" : null,
+            backgroundColor: viewMode == "list" ? '#966892' : null,
             height: 50,
             width: 50,
             borderRadius: 25,
@@ -136,7 +132,7 @@ function HomeScreen(props) {
         <Chart/>
       </View>
     }
-    </View>
+    </ImageBackground>
 
   )
 }
@@ -159,7 +155,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   card: {
     height: 100,
@@ -172,6 +168,10 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     justifyContent:'flex-start'
+  },
+  image: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
   loginButton: {
     width: '100%',

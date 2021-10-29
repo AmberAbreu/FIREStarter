@@ -6,8 +6,6 @@ import {useNavigation,useIsFocused} from '@react-navigation/native'
 
 import {VictoryPie, VictoryBar} from 'victory-native'
 
-import categoriesData from '../dummydata'
-
 
 function renderChart( props) {
   const [selectedCategory, setSelectedCategory] = React.useState(null)

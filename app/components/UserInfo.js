@@ -1,21 +1,19 @@
 import React from "react";
 import { StyleSheet, Text, View, ImageBackground } from 'react-native'
 
+import repeatedSquares from '../assets/double-bubble-outline.png'
+
 export default function UserInfo() {
   return (
     <View
-      style={{
-        paddingHorizontal: 24,
-        paddingVertical: 24,
-        backgroundColor: "white",
-      }}
+      style={styles.container}
     >
-      <View>
-        <Text style={{ color: "blue", fontSize:22 }}>My Expenses</Text>
-        <Text style={{fontSize:16, color: "gray"}}>
-          Summary (private)
-        </Text>
-      </View>
+    <ImageBackground
+    source={repeatedSquares}
+    resizeMode="cover"
+    style={styles.image}
+    >
+
  
       <View
         style={{
@@ -37,7 +35,7 @@ export default function UserInfo() {
         </View>
 
         <View style={{ marginLeft: 24 }}>
-          <Text style={{ color: "blue", fontSize:16 }}>
+          <Text style={styles.text}>
             11 Nov, 2020
           </Text>
           <Text style={{color: "gray" }}>
@@ -45,6 +43,23 @@ export default function UserInfo() {
           </Text>
         </View>
       </View>
+      </ImageBackground>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    backgroundColor: "white",
+  },
+  text: {
+     color: "#966892", 
+     fontSize:22 
+  },
+  image: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+})

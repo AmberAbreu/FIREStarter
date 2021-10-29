@@ -47,30 +47,28 @@ const [inputs, setInputs] = useState({
         }}
       >
 
-        {/* Title */}
-        <View
-          style={{ flexDirection: "row", padding: 24, alignItems: "center" }}
-        >
-          <MaterialCommunityIcons name="delete-forever" size={24} color="black"
-           onPress={() => props.deleteExpense(item.id)}
-          />
-        </View>
-
-        <AntDesign 
-        name="edit" size={24} color="black" 
-        onPress={() => handleEdit(item)}
-        />
-        <EditForm setModalVisible={setEditModalVisible} modalVisible={editModalVisible} inputs={inputs} setInputs={setInputs}/>
-      
+        
+        
         {/* Expense Description */}
-        <View style={{ paddingHorizontal: 24 }}>
+        <View style={styles.header}>
           {/* Title and description */}
           <Text style={{ fontSize: 22 }}>{item.title}</Text>
-          <Text style={{ fontSize: 16, flexWrap: "wrap", color: "gray" }}>
-            {item.description}
-          </Text>
+          <View>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <MaterialCommunityIcons name="delete-forever" size={24} color="black"
+                  onPress={() => props.deleteExpense(item.id)}
+                />
+                <AntDesign 
+                name="edit" size={24} color="black" 
+                onPress={() => handleEdit(item)}
+                />
+                <EditForm setModalVisible={setEditModalVisible} modalVisible={editModalVisible} inputs={inputs} setInputs={setInputs}/>
+            </View>
         </View>
-      
+      </View>
+      {/* <Text style={{ fontSize: 16, flexWrap: "wrap", color: "gray" }}>
+            {item.description}
+          </Text> */}
         {/* Price */}
         <View
           style={{
@@ -142,7 +140,13 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       elevation: 3,
-  }
+  },
+  header: { 
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+     padding: 24,
+    }
 })
 
 

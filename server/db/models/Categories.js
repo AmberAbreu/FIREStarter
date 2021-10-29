@@ -10,7 +10,7 @@ const Categories = db.define('categories', {
     type: Sequelize.STRING
   },
   color: {
-    type: Sequelize.ENUM('blue', 'pink', 'yellow', 'orange', 'red', 'gray', 'black', 'green'),
+    type: Sequelize.STRING,
     allowNull: true
   }
 })

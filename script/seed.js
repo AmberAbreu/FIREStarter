@@ -16,10 +16,10 @@ async function seed() {
   // Creating Expenses
 
   const categories = await Promise.all([
-    Categories.create({ name: 'Nutrition', icon: '../assets/icons/food_icon.png', color: 'blue'}),
-    Categories.create({ name: 'Self Care', icon: '../assets/icons/selfcare.png', color: 'pink'}),
-    Categories.create({ name: 'Utilities', icon: '../assets/icons/utilities.png', color: 'gray'}),
-    Categories.create({ name: 'Savings', icon: '../assets/icons/savings.png', color: 'green'}),
+    Categories.create({ name: 'Nutrition', icon: '../assets/icons/food_icon.png', color: '#00769E'}),
+    Categories.create({ name: 'Self Care', icon: '../assets/icons/selfcare.png', color: '#DEA5A4'}),
+    Categories.create({ name: 'Utilities', icon: '../assets/icons/utilities.png', color: '#cfcfc4'}),
+    Categories.create({ name: 'Savings', icon: '../assets/icons/savings.png', color: '#53A881'}),
   ])
   const [Nutrition, SelfCare, Utilities, Savings] = categories
 

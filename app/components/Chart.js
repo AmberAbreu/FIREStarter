@@ -6,8 +6,6 @@ import {useNavigation,useIsFocused} from '@react-navigation/native'
 
 import {VictoryPie, VictoryBar} from 'victory-native'
 
-import categoriesData from '../dummydata'
-
 
 function renderChart( props) {
   const [selectedCategory, setSelectedCategory] = React.useState(null)
@@ -65,8 +63,7 @@ const {categories} = props
   let totalExpenseCount = chartData.reduce((a, b) => a + (b.expenseCount || 0), 0)
 
   return (
-    <SafeAreaView style={{ alignItems: "center", justifyContent: "center" }}>
-      <Text style={{ fontSize: 30 }}>Expenses Data:</Text>
+    <SafeAreaView style={{ alignItems: "center", justifyContent: "center"}}>
       <VictoryPie
         data={chartData}
         colorScale={colorScales}
