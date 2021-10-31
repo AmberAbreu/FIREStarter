@@ -14,6 +14,7 @@ export function AddForm({modalVisible, setModalVisible, addExpense, itemId}) {
 
   const onSubmit = data => {
     addExpense(data, itemId)
+    setModalVisible(!modalVisible)
   }
   return (
     <View>

@@ -23,7 +23,9 @@ const [inputs, setInputs] = useState({
   })
   useEffect(() => {
       props.getCategory(itemId)
-  }, [itemId])
+  }, [props.category.expenses])
+
+
 
   function handleEdit(item){
     setInputs({
@@ -46,9 +48,7 @@ const [inputs, setInputs] = useState({
           ...styles.shadow,
         }}
       >
-
-        
-        
+ 
         {/* Expense Description */}
         <View style={styles.header}>
           {/* Title and description */}

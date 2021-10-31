@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View, ImageBackground } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, View, ImageBackground } from 'react-native'
 
 import repeatedSquares from '../assets/double-bubble-outline.png'
 
 export default function UserInfo() {
   return (
-    <View
+    <SafeAreaView
       style={styles.container}
     >
     <ImageBackground
@@ -44,14 +44,14 @@ export default function UserInfo() {
         </View>
       </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingVertical: 5,
     backgroundColor: "white",
   },
   text: {
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
      fontSize:22 
   },
   image: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    height: 100,
+    width: '100%'
   },
 })

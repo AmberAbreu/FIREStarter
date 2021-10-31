@@ -20,6 +20,7 @@ export function EditForm({modalVisible, setModalVisible, updateExpense, expenseI
   // }
 
   const onSubmit = data => {
+    setModalVisible(!modalVisible)
     updateExpense(data, inputs.id)
   }
 
@@ -100,7 +101,10 @@ export function EditForm({modalVisible, setModalVisible, updateExpense, expenseI
               />
               <Button title="Submit" onPress={handleSubmit(onSubmit)} />
 
-              <Text style={styles.textStyle}>Cancel</Text>
+              <Text 
+              style={styles.textStyle}
+              onPress={()=> setModalVisible(!modalVisible)}
+              >Cancel</Text>
             </Pressable>
           </View>
         </View>

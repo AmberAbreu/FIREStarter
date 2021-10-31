@@ -98,7 +98,7 @@ export const updateExpense = (updatedExpense, id) => {
         try {
           const {data} = await axios.put(`http://192.168.1.145:8080/categories/${id}`, updatedExpense);
           console.log("the update thunk has been called");
-          dispatch(_updatedExpense(data));
+          dispatch(_updateExpense(data));
         } catch (err) {
           console.log(err)
         }
