@@ -1,46 +1,33 @@
-import React from 'react'
-import { StyleSheet, Text, View, ImageBackground } from 'react-native'
+import React, { useState } from "react";
+import { StatusBar } from "expo-status-bar";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  View,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 
 export default function WelcomeScreen() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
-    <ImageBackground source={require('../assets/background.jpeg')}
-    style={styles.background}>
-      <View style={styles.logoContainer}>
-        <Text style={styles.logo}>🔥</Text>
-        <Text>Get personal with your finances</Text>
-      </View>
-      <View style={styles.loginButton}></View>
-      <View style={styles.registerButton}></View>
-    </ImageBackground>
-
-  )
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.image}>🔥</Text>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-  background: {
+  container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end'
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  loginButton: {
-    width: '100%',
-    height: 70,
-    justifyContent: "flex-end",
-    backgroundColor: "orange"
+  image: {
+    marginBottom: 40,
   },
-  logo: {
-    fontSize: 100,
-    
-  },
-  logoContainer: {
-    position:'absolute',
-    top: 50,
-    alignItems:'center'
-  },
-  registerButton: {
-    width: '100%',
-    height: 70,
-    justifyContent: "flex-end",
-    backgroundColor: "yellow"
-  }
-})
+});

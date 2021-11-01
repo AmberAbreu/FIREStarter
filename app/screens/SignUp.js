@@ -1,79 +1,77 @@
-// import React from "react";
-// import { StyleSheet, Text, TextInput, View, Button } from "react-native";
-// import * as firebase from "firebase";
-// import { AsyncStorage } from "react-native";
+import React, { useState } from "react";
+import { StatusBar } from "expo-status-bar";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  View,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 
-// export default class SignUp extends React.Component {
-//   constructor(props){
-//     super(props)
-//     this.state = { email: "", password: "", errorMessage: null };
-//   }
-  
-//   componentDidMount() {
-//     //1.
-//     // const value=AsyncStorage.gettItem("key");
-//     //if (value !== null){}
-//     //2.
-//     // firebase.auth().onAuthStateChanged(user => {
-//     //   if (user != null) {
-//     //     console.log("We are authenticated now!");
-//     //   }
-//     // });
-//   }
+export default function WelcomeScreen() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.image}>🔥</Text>
+      <StatusBar style="auto" />
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Email"
+          placeholderTextColor="#003f5c"
+          onChangeText={(email) => setEmail(email)}
+        ></TextInput>
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Password"
+          placeholderTextColor="#003f5c"
+          onChangeText={(password) => setPassword(password)}
+        ></TextInput>
 
-//   handleSignUp(){
-//     firebase
-//       .auth()
-//       .createUserWithEmailAndPassword(this.state.email, this.state.password)
-//       .then(() => this.props.navigation.navigate("HomeScreen"))
-//       .catch(error => this.setState({ errorMessage: error.message }));
-//   }
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text>Sign Up</Text>
-//         {this.state.errorMessage && (
-//           <Text style={{ color: "red" }}>{this.state.errorMessage}</Text>
-//         )}
-//         <TextInput
-//           placeholder="Email"
-//           autoCapitalize="none"
-//           style={styles.textInput}
-//           onChangeText={email => this.setState({ email })}
-//           value={this.state.email}
-//         />
-//         <TextInput
-//           secureTextEntry
-//           placeholder="Password"
-//           autoCapitalize="none"
-//           style={styles.textInput}
-//           onChangeText={password => this.setState({ password })}
-//           value={this.state.password}
-//         />
-//         <Button title="Sign Up" onPress={this.handleSignUp} />
-//         <Button
-//           title="Already have an account? Login"
-//           onPress={() => this.props.navigation.navigate("Login")}
-//         />
-//         <Button
-//           title="Login via OTP"
-//           onPress={() => this.props.navigation.navigate("Otp")}
-//         />
-//       </View>
-//     );
-//   }
-// }
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center"
-//   },
-//   textInput: {
-//     height: 40,
-//     width: "90%",
-//     borderColor: "gray",
-//     borderWidth: 1,
-//     marginTop: 8
-//   }
-// });
+        <TouchableOpacity style={styles.loginBtn}>
+          <Text style={styles.loginText}>SIGN UP</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  TextInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    marginLeft: 20,
+  },
+  inputView: {
+    backgroundColor: "#FFC0CB",
+    borderRadius: 30,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+    alignItems: "center",
+  },
+  image: {
+    marginBottom: 40,
+  },
+  loginBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#966892",
+  },
+});
