@@ -4,10 +4,7 @@ const {
   db,
   models: { Expenses, Categories, User },
 } = require("../server/db");
-// const food = require('')
-// const selfcare = require()
-// const utilities = require()
-// const savings = require()
+
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
