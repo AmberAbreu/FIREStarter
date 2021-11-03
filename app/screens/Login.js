@@ -32,11 +32,10 @@ export default function WelcomeScreen() {
           placeholderTextColor="#003f5c"
           onChangeText={(password) => setPassword(password)}
         ></TextInput>
-
-        <TouchableOpacity style={styles.loginBtn}>
-          <Text style={styles.loginText}>LOGIN</Text>
-        </TouchableOpacity>
       </View>
+      <TouchableOpacity style={styles.loginBtn}>
+        <Text style={styles.loginText}>LOGIN</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
